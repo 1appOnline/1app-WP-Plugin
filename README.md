@@ -1,6 +1,6 @@
 # OneApp Universal Payment Handler
 
-**Contributors:** Alexander Bamidele  
+**Contributors:** Alexander Bamidele | Adedayo Adejumo
 **Tags:** payment, oneapp, forms, wpforms, gravity forms, contact form 7, universal  
 **Requires at least:** 5.0  
 **Tested up to:** 6.5  

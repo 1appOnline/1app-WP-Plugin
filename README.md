@@ -4,11 +4,11 @@
 **Tags:** payment, oneapp, forms, wpforms, gravity forms, contact form 7, universal  
 **Requires at least:** 5.0  
 **Tested up to:** 6.5  
-**Stable tag:** 2.0.0  
+**Stable tag:** 3.0.0  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
-A universal OneApp payment handler for any WordPress form (WPForms, Gravity Forms, Contact Form 7, custom forms, and more). Log all transactions, accept payments via OneApp, and manage payment forms from your dashboard.
+A universal OneApp payment handler for any WordPress form (WPForms, Gravity Forms, Contact Form 7, custom forms, and more). Log transactions, accept payments via OneApp, and manage payment forms from your dashboard.
 
 ---
 
@@ -20,6 +20,7 @@ A universal OneApp payment handler for any WordPress form (WPForms, Gravity Form
 - **Transaction Logging:** All payments are logged as custom post types for easy review.
 - **Customizable Payment Form:** Change form title, description, and button text from the admin.
 - **Secure AJAX Logging:** Uses WordPress nonces for secure transaction logging.
+- **Admin Form Builder Security:** Uses nonce and capability checks when saving form definitions.
 - **No Coding Required:** Easy setup and integration.
 
 ---
@@ -87,6 +88,11 @@ A: Each payment is saved as a custom post type (`oneapp_transaction`) with all r
 ---
 
 ## Changelog
+
+### 3.0.0
+- Security hardening for the form builder save flow.
+- Release packaging alignment for submission readiness.
+- Version metadata synchronized across plugin files.
 
 ### 2.0.0
 - Initial public release.

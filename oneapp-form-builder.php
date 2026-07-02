@@ -2,7 +2,11 @@
 /**
  * Plugin Name: 1app Form Builder
  * Description: Custom form builder for 1app payment forms.
- * Version: 1.0
+ * Version: 3.0.0
+ * Requires at least: 6.0
+ * Requires PHP: 8.0
+ * License: GPLv2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -61,6 +65,7 @@ function oneapp_form_fields_metabox_cb($post) {
             The form will use your theme's default styles.
         </small>
     </div>
+    <?php wp_nonce_field('oneapp_save_form_fields', 'oneapp_form_fields_nonce'); ?>
     <?php
     $fields = get_post_meta($post->ID, '_oneapp_form_fields', true);
     if (!is_array($fields)) $fields = [];
@@ -122,9 +127,38 @@ function oneapp_form_fields_metabox_cb($post) {
     <?php
 }
 add_action('save_post_oneapp_form', function($post_id) {
-    if (isset($_POST['oneapp_fields'])) {
-        update_post_meta($post_id, '_oneapp_form_fields', $_POST['oneapp_fields']);
+    if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) {
+        return;
     }
+
+    if ( ! isset( $_POST['oneapp_form_fields_nonce'] ) || ! wp_verify_nonce( $_POST['oneapp_form_fields_nonce'], 'oneapp_save_form_fields' ) ) {
+        return;
+    }
+
+    if ( ! current_user_can( 'edit_post', $post_id ) ) {
+        return;
+    }
+
+    if ( ! isset( $_POST['oneapp_fields'] ) || ! is_array( $_POST['oneapp_fields'] ) ) {
+        delete_post_meta( $post_id, '_oneapp_form_fields' );
+        return;
+    }
+
+    $fields = array();
+    foreach ( $_POST['oneapp_fields'] as $field ) {
+        if ( ! is_array( $field ) ) {
+            continue;
+        }
+
+        $fields[] = array(
+            'type'     => sanitize_text_field( $field['type'] ?? 'text' ),
+            'label'    => sanitize_text_field( $field['label'] ?? '' ),
+            'options'  => sanitize_text_field( $field['options'] ?? '' ),
+            'required' => ! empty( $field['required'] ) ? 1 : 0,
+        );
+    }
+
+    update_post_meta( $post_id, '_oneapp_form_fields', $fields );
 });
 
 // --- Show Shortcode After Save ---

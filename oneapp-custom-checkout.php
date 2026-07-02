@@ -3,9 +3,12 @@ require_once plugin_dir_path(__FILE__) . 'oneapp-form-builder.php';
 /**
  * Plugin Name: OneApp Universal Payment Handler
  * Description: Universal Oneapp payment handler for any WordPress form (WPForms, Gravity Forms, Contact Form 7, etc).
- * Version: 2.0.0
+ * Version: 2.1.0
+ * Requires at least: 6.0
+ * Tested up to: 6.7
  * Author: Alexander Bamidele
  * Contributor: Adedayo Adejumo
+ * Text Domain: oneapp
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
